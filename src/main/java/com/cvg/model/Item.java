@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Item {
 
+	
 	int itemId;
 	int upc;
 	String itemName;
@@ -72,6 +73,13 @@ public class Item {
 	}
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		
+		return String.format( "Itemid:" + itemId +" " + itemName +" " + "dateentered:" + dateEntered +" " + expirationDate);
 	}
 }
 

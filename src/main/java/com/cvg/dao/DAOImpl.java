@@ -10,8 +10,6 @@ import java.util.List;
 
 import com.cvg.model.Item;
 
-
-
 public class DAOImpl implements DAO {
     static{
         //public static void main(java.lang.String[] args) {
@@ -99,6 +97,7 @@ public class DAOImpl implements DAO {
     			item.setItemName(rs.getString("item_name"));
     			item.setCompany(rs.getString("company"));
     			item.setDateEntered(rs.getInt("date_entered"));
+    			System.out.println(item.toString());
     	    	item.setExpirationDate(rs.getInt("expiration_date"));
     	    	item.setQuantity(rs.getInt("quantity"));
     		}
@@ -110,6 +109,38 @@ public class DAOImpl implements DAO {
             closeConnection(connection);
         }
         return item;
+    }
+    
+    public void addItem(Item item) {
+        Connection connection = null;
+        try {
+        	connection = getConnection();
+        	PreparedStatement statement = connection
+                    .prepareStatement("insert into `ITEMS`"
+                    		+ "( `upc`, `item_name`, `company`, `date_entered`, `expiration_date`, `quantity`) "
+                    		+ "values (?, ?, ?, ?, ?, ?)");
+
+        	statement.setInt(1, item.getUpc());
+            statement.setString(2, item.getItemName());
+            statement.setString(3, item.getCompany());
+            statement.setInt(4, item.getDateEntered());
+            statement.setInt(5, item.getExpirationDate());
+            statement.setInt(6, item.getQuantity());
+            System.out.println(item.toString());
+            System.out.println(statement.toString());
+            statement.executeUpdate();
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+
+            if (generatedKeys.next()) {
+                item.setItemId(generatedKeys.getInt(1));//get col by int value
+            }
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            closeConnection(connection);
+        }
+
     }
     
 }

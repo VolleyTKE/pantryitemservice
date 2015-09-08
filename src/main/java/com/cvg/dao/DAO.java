@@ -9,5 +9,7 @@ public interface DAO {
 	List<Item> getAllItems();
 
 	Item getItemByID(int itemId);
+	
+	public void addItem(Item item);
 
 }
