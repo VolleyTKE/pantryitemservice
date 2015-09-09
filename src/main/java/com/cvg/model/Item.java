@@ -9,8 +9,8 @@ public class Item {
 	int upc;
 	String itemName;
 	String company;
-	int dateEntered;
-	int expirationDate;
+	String dateEntered;
+	String expirationDate;
 	int quantity;
 	
 	public Item(){
@@ -21,7 +21,7 @@ public class Item {
 		this.itemId = itemId;
 	}
 	
-	public Item(@JsonProperty("itemId")int itemId, @JsonProperty("upc")int upc, @JsonProperty("itemName")String itemName, @JsonProperty("company")String company, @JsonProperty("dateEntered")int dateEntered, @JsonProperty("expirationDate")int expirationDate,
+	public Item(@JsonProperty("itemId")int itemId, @JsonProperty("upc")int upc, @JsonProperty("itemName")String itemName, @JsonProperty("company")String company, @JsonProperty("dateEntered")String dateEntered, @JsonProperty("expirationDate")String expirationDate,
 			@JsonProperty("quantity")int quantity) {
 		super();
 		this.upc = upc;
@@ -56,16 +56,16 @@ public class Item {
 	public void setCompany(String company) {
 		this.company = company;
 	}
-	public int getDateEntered() {
+	public String getDateEntered() {
 		return dateEntered;
 	}
-	public void setDateEntered(int dateEntered) {
+	public void setDateEntered(String dateEntered) {
 		this.dateEntered = dateEntered;
 	}
-	public int getExpirationDate() {
+	public String getExpirationDate() {
 		return expirationDate;
 	}
-	public void setExpirationDate(int expirationDate) {
+	public void setExpirationDate(String expirationDate) {
 		this.expirationDate = expirationDate;
 	}
 	public int getQuantity() {

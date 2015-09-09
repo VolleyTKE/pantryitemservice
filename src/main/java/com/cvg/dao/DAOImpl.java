@@ -5,7 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.cvg.model.Item;
@@ -61,8 +63,8 @@ public class DAOImpl implements DAO {
             	item.setUpc(rs.getInt("upc"));
             	item.setItemName(rs.getString("item_name"));
             	item.setCompany(rs.getString("company"));
-            	item.setDateEntered(rs.getInt("date_entered"));
-            	item.setExpirationDate(rs.getInt("expiration_date"));
+            	item.setDateEntered(rs.getString("date_entered"));
+            	item.setExpirationDate(rs.getString("expiration_date"));
             	item.setQuantity(rs.getInt("quantity"));
             	items.add(item);
             }
@@ -96,9 +98,9 @@ public class DAOImpl implements DAO {
     			item.setUpc(rs.getInt("upc"));
     			item.setItemName(rs.getString("item_name"));
     			item.setCompany(rs.getString("company"));
-    			item.setDateEntered(rs.getInt("date_entered"));
+    			item.setDateEntered(rs.getString("date_entered"));
     			System.out.println(item.toString());
-    	    	item.setExpirationDate(rs.getInt("expiration_date"));
+    	    	item.setExpirationDate(rs.getString("expiration_date"));
     	    	item.setQuantity(rs.getInt("quantity"));
     		}
             
@@ -123,9 +125,9 @@ public class DAOImpl implements DAO {
         	statement.setInt(1, item.getUpc());
             statement.setString(2, item.getItemName());
             statement.setString(3, item.getCompany());
-            statement.setInt(4, item.getDateEntered());
-            statement.setInt(5, item.getExpirationDate());
-            statement.setInt(6, item.getQuantity());
+            statement.setString(4,formatStringToString(item.getDateEntered()));
+            statement.setString(5,formatStringToString(item.getExpirationDate()));
+            statement.setInt(6, 2);
             System.out.println(item.toString());
             System.out.println(statement.toString());
             statement.executeUpdate();
@@ -143,4 +145,16 @@ public class DAOImpl implements DAO {
 
     }
     
+    
+    public String formatStringToString(String date){
+    	String subDate = date.substring(0, 10);
+    	return subDate;
+    }
+    
+    public String formatDateToString(Date date){
+    String pattern = "yyyy-MM-dd";
+    SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+    String mysqlDateString = formatter.format(date);
+    return mysqlDateString;
+    }
 }

@@ -2,8 +2,6 @@ package com.cvg.controller;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,7 +33,7 @@ public class ItemController {
 		return dao.getItemByID(itemid);
 	}
 
-	@RequestMapping(value="/addItem", method = RequestMethod.POST)
+	@RequestMapping(value="/addItem", method = RequestMethod.POST)//not sure if this work because of restcontrol or corsfilter
 	public Item addItem(@RequestBody Item item) {
 		
 		dao.addItem(item);
