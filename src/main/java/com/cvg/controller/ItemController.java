@@ -39,6 +39,11 @@ public class ItemController {
 		dao.addItem(item);
 		return item;
 	}
+	
+	@RequestMapping(value = "/delete/{itemId}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable("itemId") int itemId) {
+        dao.delete(itemId);
+    }
 		
 
 }

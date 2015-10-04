@@ -5,9 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.cvg.model.Item;
@@ -99,8 +97,7 @@ public class DAOImpl implements DAO {
     			item.setItemName(rs.getString("item_name"));
     			item.setCompany(rs.getString("company"));
     			item.setDateEntered(rs.getString("date_entered"));
-    			System.out.println(item.toString());
-    	    	item.setExpirationDate(rs.getString("expiration_date"));
+    			item.setExpirationDate(rs.getString("expiration_date"));
     	    	item.setQuantity(rs.getInt("quantity"));
     		}
             
@@ -128,8 +125,6 @@ public class DAOImpl implements DAO {
             statement.setString(4,formatStringToString(item.getDateEntered()));
             statement.setString(5,formatStringToString(item.getExpirationDate()));
             statement.setInt(6, 2);
-            System.out.println(item.toString());
-            System.out.println(statement.toString());
             statement.executeUpdate();
             ResultSet generatedKeys = statement.getGeneratedKeys();
 
@@ -145,16 +140,26 @@ public class DAOImpl implements DAO {
 
     }
     
+  public void delete(Integer itemId) {
+  Connection connection = null;
+
+  try {
+      connection = getConnection();
+      PreparedStatement statement = connection
+              .prepareStatement("delete from ITEMS where item_id=?");
+      statement.setInt(1, itemId);
+      statement.execute();
+  } catch (SQLException ex) {
+      ex.printStackTrace();
+  } finally {
+      closeConnection(connection);
+  }}
+    
     
     public String formatStringToString(String date){
     	String subDate = date.substring(0, 10);
     	return subDate;
     }
     
-    public String formatDateToString(Date date){
-    String pattern = "yyyy-MM-dd";
-    SimpleDateFormat formatter = new SimpleDateFormat(pattern);
-    String mysqlDateString = formatter.format(date);
-    return mysqlDateString;
-    }
+   
 }

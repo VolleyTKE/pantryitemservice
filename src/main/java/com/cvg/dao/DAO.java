@@ -11,5 +11,7 @@ public interface DAO {
 	Item getItemByID(int itemId);
 	
 	public void addItem(Item item);
+	
+	public void delete(Integer itemId);
 
 }
